@@ -1,13 +1,18 @@
 <!doctype html>
 <html>
 <head>
-  <title>
-  {% block title %} Flask practice {% endblock %}
-  </title>
+  <title> {% block title %} Flask practice {% endblock %} </title>
+  <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
+  
   {% block content %} <h1>No content yet. Sorry!</h1>
   {% endblock %}
+
   <footer> Made my <a href="https://thechutrain.github.io/">Alan Chu</a></footer>
+
+  {% block scripts %}
+  {% endblock %}
+
 </body>
 </html>
