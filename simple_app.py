@@ -6,8 +6,9 @@ app = Flask(__name__)
 
 @app.route('/')
 @app.route("/<name>")
-def index(name="Buddy"):
-    return render_template("index.html", name = name)
+def index(name = "default"):
+    data = get_saved_data()
+    return render_template("index.html", saves=data)
     # return "Hello {}!".format(name)
 
 # default data type it comes in is a string!
@@ -23,19 +24,20 @@ def add(num1,num2):
 # create the route for saving & uploading cookie data
 @app.route('/save', methods=["POST"])
 def save():
+    # import pdb; pdb.set_trace()
     # make the response
     response = make_response(redirect(url_for('index')))
-    response.set_cookie("user", json.dumps(dict(request.form.items())))
-    # response.set_cookie("character", json.dumps(data))
-    # data = get_saved_data()
-    # data.update(dict(request.form.items()))
+    data = get_saved_data()
+    # update the saved data if its different in form
+    data.update(dict(request.form.items()))
+    response.set_cookie("user", json.dumps(data))
     return response
 
-# def get_saved_data():
-#     try:
-#         data = json.loads(request.cookies.get('user'))
-#     except TypeError:
-#         data = {}
-#     return data
+def get_saved_data():
+    try:
+        data = json.loads(request.cookies.get('user'))
+    except TypeError:
+        data = {}
+    return data
 
 app.run(debug=True)

@@ -5,7 +5,7 @@
 {% block content %}
 <form action="/save" method="POST">
     <label>Type in your name below:</label>
-    <input type="text" name="name" value="test" autofocus>
+    <input type="text" name="name" value="{{ saves.get('name', " ")}}" autofocus>
     <input type="submit" value="Say hello!">
 </form>
 {% endblock %}
